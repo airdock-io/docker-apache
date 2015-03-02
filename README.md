@@ -40,9 +40,9 @@ This image declare a volume on this path: /var/www
 | APACHE_RUN_USER 	      | www-data                       |
 | APACHE_RUN_GROUP 	      | www-data                       |
 | APACHE_PID_FILE 	      | /var/run/apache2/apache2.pid   |
-| APACHE_RUN_DIR 	      | /var/run/apache2               |
+| APACHE_RUN_DIR 	        | /var/run/apache2               |
 | APACHE_LOCK_DIR 	      | /var/lock/apache2              |
-| APACHE_LOG_DIR 	      | /var/log/apache2               |
+| APACHE_LOG_DIR 	        | /var/log/apache2               |
 | APACHE_ULIMIT_MAX_FILES | ulimit -n 65536                |
 | APACHE_SERVERNAME       | fake.server.com                |
 
@@ -51,14 +51,41 @@ This image declare a volume on this path: /var/www
 
 # Usage
 
-1. You should have already install [Docker](https://www.docker.com/) and [Fig](http://www.fig.sh/) for more complex usage.
-2. Download [automated build](https://registry.hub.docker.com/u/airdock/) from public [Docker Hub Registry](https://registry.hub.docker.com/):
-`docker search airdock` or go directly in 3.
-3. Execute:
-  'docker run -t -i  airdock/apache '
+You should have already install [Docker](https://www.docker.com/).
+Download [automated build](https://registry.hub.docker.com/u/airdock/) from public [Docker Hub Registry](https://registry.hub.docker.com/):
+`docker search airdock`.
 
 
-TODO few example with mounted volume and/or dockerfile
+Or execute
+
+  'docker run -d -p 80:80 -p 443:443 --name apache airdock/apache '
+
+
+
+### static content from an external volume
+
+
+  	'docker run -v /some/content:/var/www/html:ro -d -p 80:80 -p 443:443 --name apache  airdock/apache '
+
+
+  The user www-data (uid 33) in your container should be known into your host. As it is a standard user, it should be erver present.
+  See [How Managing user in docker container](https://github.com/airdock-io/docker-base/blob/master/README.md#how-managing-user-in-docker-container) and  [Common User List](https://github.com/airdock-io/docker-base/blob/master/CommonUserList.md).
+
+  If 'www-data' user is not present, you should create it with this uid:gid:
+
+  ```
+    sudo groupadd www-data -g 33
+    sudo useradd -u 33  --no-create-home --system --no-user-group www-data
+    sudo usermod -g www-data www-data
+  ```
+
+  And then set owner and permissions on your host directory:
+
+  ```
+  	chown -R www-data:www-data /some/content
+  ```
+
+
 
 
 # Change Log
@@ -68,6 +95,7 @@ TODO few example with mounted volume and/or dockerfile
 
 - add Apache Http server 2.4
 - declare environment variable
+
 
 # Build
 
@@ -84,8 +112,8 @@ And *tasks*:
 - all: alias to 'build'
 - clean: remove all container which depends on this image, and remove image previously builded
 - build: clean and build the current version
-- tag_latest: build and tag current version with ":latest"
-- release: execute tag_latest, push image onto registry, and tag git repository
+- tag_latest: tag current version with ":latest"
+- release: build and execute tag_latest, push image onto registry, and tag git repository
 - debug: launch default command with builded image in interactive mode
 - run: run image as daemon and print IP address.
 

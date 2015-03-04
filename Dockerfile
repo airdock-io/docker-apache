@@ -13,11 +13,11 @@ RUN apt-get update -qq && \
 	apt-get install -y -qq apache2 && \
 	mkdir -p /var/run/apache2  /var/log/apache2 /var/lock/apache2 && \
 	chown -R www-data:www-data /var/run/apache2 /var/log/apache2 /var/lock/apache2 /var/www && \
+    /root/post-install && \
 	MODULE_LIST="cache.load cache_disk.conf cache_disk.load expires.load headers.load proxy.conf proxy.load proxy_http.load vhost_alias.load include.load  autoindex.load autoindex.conf"  && \
 	for name in $MODULE_LIST; do \
   		if [ ! -e "/etc/apache2/mods-enabled/$name" ]; then ln -s /etc/apache2/mods-available/$name  /etc/apache2/mods-enabled/$name ; fi; \
-	done; && \
-	/root/post-install
+	done;
 
 # Add Configuration apache
 ADD etc 		/etc

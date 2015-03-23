@@ -90,9 +90,6 @@ Or execute
 
 # Change Log
 
-## TODO
-
-- remove all configuration from environment variable (not a good way)
 
 ## latest (current)
 

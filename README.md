@@ -1,17 +1,14 @@
-# Docker Apache [![](https://badge.imagelayers.io/airdock/apache:latest.svg)](https://imagelayers.io/?images=airdock/apache:latest 'Get your own badge on imagelayers.io')
+# Docker Apache  [![](https://images.microbadger.com/badges/image/airdock/apache:latest.svg)](https://microbadger.com/images/airdock/apache:latest "Get your own image badge on microbadger.com")
 
-Docker Image for Apache HTTP server based on airdock/base:latest
+Docker Image for Apache HTTP server based on airdock/base:jessie
 
 Purpose of this image is:
 
 - provide [Apache Http Server](http://httpd.apache.org/)
-- be based on airdock/base:latest
+- be based on airdock/base:jessie
 
 
 > Name: airdock/apache
-
-***Dependency***: airdock/base:latest
-
 
 
 ### Volume

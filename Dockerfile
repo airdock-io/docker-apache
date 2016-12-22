@@ -5,7 +5,7 @@
 # SOURCE:         https://github.com/airdock-io/docker-apache
 
 # Pull base image.
-FROM airdock/base:latest
+FROM airdock/base:jessie
 
 MAINTAINER Jerome Guibert <jguibert@gmail.com>
 

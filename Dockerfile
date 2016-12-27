@@ -23,14 +23,14 @@ RUN apt-get update -qq && \
 ADD etc 		/etc
 
 # define environment
-ENV APACHE_RUN_USER 		www-data
-ENV APACHE_RUN_GROUP 		www-data
-ENV APACHE_PID_FILE 		/var/run/apache2/apache2.pid
-ENV APACHE_RUN_DIR 			/var/run/apache2
-ENV APACHE_LOCK_DIR 		/var/lock/apache2
-ENV APACHE_LOG_DIR 			/var/log/apache2
-ENV APACHE_ULIMIT_MAX_FILES 'ulimit -n 65536'
-ENV APACHE_SERVERNAME       fake.server.com
+ENV APACHE_RUN_USER=www-data \
+  APACHE_RUN_GROUP=www-data \
+	APACHE_PID_FILE=/var/run/apache2/apache2.pid \
+	APACHE_RUN_DIR=/var/run/apache2 \
+	APACHE_LOCK_DIR=/var/lock/apache2 \
+	APACHE_LOG_DIR=/var/log/apache2 \
+	APACHE_ULIMIT_MAX_FILES='ulimit -n 65536' \
+	APACHE_SERVERNAME=fake.server.com
 
 # declare volume
 VOLUME ["/var/www"]

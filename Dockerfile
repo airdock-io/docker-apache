@@ -7,7 +7,7 @@
 # Pull base image.
 FROM airdock/base:jessie
 
-MAINTAINER Jerome Guibert <jguibert@gmail.com>
+LABEL maintainer Jerome Guibert <jguibert@gmail.com>
 
 RUN apt-get update -qq && \
 	apt-get install -y -qq apache2 && \
